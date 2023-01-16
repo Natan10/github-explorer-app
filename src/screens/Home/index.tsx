@@ -31,7 +31,6 @@ export const Home = () => {
         <HeaderLogo source={logo} resizeMode="cover" />
       </Header>
 
-
       <Content>
         <SearchTitle>
           Explore repositórios {'\n'}
