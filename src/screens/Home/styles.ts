@@ -49,6 +49,7 @@ export const SearchInput = styled.TextInput`
 
   background-color: ${({theme}) => theme.colors.white};
   color: ${({theme}) => theme.colors.gray_500};
+  font-family: ${({theme}) => theme.fonts.regular};
   
   padding: 16px;
 
@@ -67,4 +68,9 @@ export const SearchButton = styled.TouchableOpacity`
   background-color: ${({theme}) => theme.colors.green_200};
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+`;
+
+export const Repositories = styled.FlatList`
+  margin-top: 48px;
+  flex: 1;
 `;
