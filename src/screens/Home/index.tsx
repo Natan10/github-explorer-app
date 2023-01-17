@@ -1,9 +1,8 @@
 import React from "react";
-import { ListRenderItemInfo } from 'react-native';
 import { useTheme } from "styled-components";
 import { EvilIcons } from '@expo/vector-icons';
 
-import { RepositoryCard, RepositoryCardProps } from "../../components/RepositoryCard";
+import { Repositories } from "../../components/Repositories";
 import {
   Container,
   BgImage,
@@ -14,12 +13,10 @@ import {
   SearchContent,
   SearchInput,
   SearchButton,
-  Repositories
 } from './styles';
 
 import bgLogo from '../../assets/images/github_bg/github_bg.png';
 import logo from '../../assets/images/logo/logo.png';
-import { getBottomSpace } from "react-native-iphone-x-helper";
 
 export const Home = () => {
   const theme = useTheme();
@@ -44,20 +41,8 @@ export const Home = () => {
           </SearchButton>
         </SearchContent>
 
-        <Repositories 
-          data={Array.from(Array(10).keys())}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(item: any) => item}
-          contentContainerStyle={{
-            paddingBottom: getBottomSpace()
-          }}
-          renderItem={({item}: ListRenderItemInfo<RepositoryCardProps>) => (
-            <RepositoryCard />
-          )}
-        />
-          
+        <Repositories data={[]} />          
       </Content>
-    
     </Container>
   )
 }

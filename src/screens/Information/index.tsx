@@ -2,6 +2,7 @@ import React from 'react';
 import { useTheme } from 'styled-components';
 
 import { BgImage } from '../../components/BgImage';
+import { InfoRepositories } from '../../components/InfoRepositories';
 import { 
   Container,
   Header,
@@ -21,7 +22,6 @@ import {
 import logo from '../../assets/images/logo/logo.png';
 
 const image = 'https://doodleipsum.com/700?i=c3fb7f663953a463ba30ffde7ce73077'
-
 
 export const Information = () => {
   const theme = useTheme();
@@ -65,6 +65,8 @@ export const Information = () => {
           <InfoCardName >Issues {'\n'} Abertas</InfoCardName>
         </InfoCardCount>
       </InfoCardCountContent>
+    
+      <InfoRepositories data={[]} />
     </Container>
   );
 }

@@ -10,7 +10,7 @@ import {
   Description,
 } from './styles';
 
-const image = 'https://doodleipsum.com/700?i=c3fb7f663953a463ba30ffde7ce73077'
+const mockImage = 'https://doodleipsum.com/700?i=c3fb7f663953a463ba30ffde7ce73077'
 
 export interface RepositoryCardProps {
   image?: string;
@@ -18,7 +18,7 @@ export interface RepositoryCardProps {
   description: string;
 }
 
-export const RepositoryCard = () => {
+export const RepositoryCard = ({image = mockImage, title, description}: RepositoryCardProps) => {
   const theme = useTheme();
 
   return(
@@ -30,16 +30,14 @@ export const RepositoryCard = () => {
         }}
       />
       <Info>
-        <Title numberOfLines={1}>Facebook/react</Title>
-        <Description numberOfLines={1} >A declaritive, efficient a sjskjsksjks sjksjsnd flexis sjksjsk ksjsksj kjsksj</Description>
+        <Title numberOfLines={1}>{title}</Title>
+        <Description numberOfLines={1}>{description}</Description>
       </Info>
-      
       <MaterialIcons 
         name="keyboard-arrow-right" 
         size={24} 
         color={theme.colors.gray_200} 
       />
-      
     </Container>
   );
 }

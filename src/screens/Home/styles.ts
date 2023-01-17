@@ -66,8 +66,3 @@ export const SearchButton = styled.TouchableOpacity`
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 `;
-
-export const Repositories = styled.FlatList`
-  margin-top: 48px;
-  flex: 1;
-`;

@@ -83,3 +83,5 @@ export const InfoCardName = styled.Text`
 
   text-align: center;
 `;
+
+
