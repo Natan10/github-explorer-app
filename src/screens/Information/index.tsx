@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
+import { AntDesign } from '@expo/vector-icons';
 
 import { BgImage } from '../../components/BgImage';
 import { InfoRepositories } from '../../components/InfoRepositories';
@@ -31,7 +32,9 @@ export const Information = () => {
       <BgImage />
       <Header>
         <HeaderLogo source={logo} resizeMode="cover" />
-        <HeaderArrow name="arrowleft" size={18} color={theme.colors.gray_500} />
+        <HeaderArrow>
+          <AntDesign name="arrowleft" size={18} color={theme.colors.gray_500} />
+        </HeaderArrow>
       </Header>
 
       <Info>

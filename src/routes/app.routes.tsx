@@ -13,14 +13,14 @@ export interface ListRoutes {
 export const AppRoutes = () => {
   return(
     <Navigator screenOptions={{headerShown: false}}>
-      {/* <Screen 
+      <Screen 
         name='Home'
         component={Home}
-      /> */}
-      <Screen 
+      />
+      {/* <Screen 
         name="Information"
         component={Information}
-      />
+      /> */}
     </Navigator>
   )
 }

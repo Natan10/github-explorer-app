@@ -17,10 +17,15 @@ export const Header = styled.View`
 
 export const HeaderLogo = styled.Image``;
 
-export const HeaderArrow = styled(AntDesign)`
+export const HeaderArrow = styled.Pressable`
   position: absolute;
   left: 24;
 `;
+
+// export const HeaderArrow = styled(AntDesign)`
+//   position: absolute;
+//   left: 24;
+// `;
 
 export const Info = styled.View`
   margin-top: 32px;
