@@ -22,11 +22,6 @@ export const HeaderArrow = styled.Pressable`
   left: 24;
 `;
 
-// export const HeaderArrow = styled(AntDesign)`
-//   position: absolute;
-//   left: 24;
-// `;
-
 export const Info = styled.View`
   margin-top: 32px;
   padding: 0 20px;

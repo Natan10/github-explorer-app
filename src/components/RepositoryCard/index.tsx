@@ -15,7 +15,7 @@ const mockImage = 'https://doodleipsum.com/700?i=c3fb7f663953a463ba30ffde7ce7307
 export interface RepositoryCardProps {
   image?: string;
   title: string;
-  description: string;
+  description: string | null;
 }
 
 export const RepositoryCard = ({image = mockImage, title, description}: RepositoryCardProps) => {
@@ -31,7 +31,9 @@ export const RepositoryCard = ({image = mockImage, title, description}: Reposito
       />
       <Info>
         <Title numberOfLines={1}>{title}</Title>
-        <Description numberOfLines={1}>{description}</Description>
+        <Description numberOfLines={1}>
+          {description || 'Sem descrição'}
+        </Description>
       </Info>
       <MaterialIcons 
         name="keyboard-arrow-right" 
