@@ -2,12 +2,12 @@ import React from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import Animated from 'react-native-reanimated';
+import { Github } from '../../interfaces/github';
 
 import { RepositoryCard } from '../RepositoryCard';
-import { RepositoryCardDTO } from '../RepositoryCard/dtos/repositoryCardDTO';
 
 interface RepositoriesProps {
-  data: RepositoryCardDTO[]
+  data: Github[];
 }
 
 export const Repositories = ({data}: RepositoriesProps) => {
@@ -23,9 +23,10 @@ export const Repositories = ({data}: RepositoriesProps) => {
       contentContainerStyle={{
         paddingBottom: getBottomSpace()
       }}
-      renderItem={({item}: ListRenderItemInfo<RepositoryCardDTO>) => (
-        <RepositoryCard   
-          image={item.image}
+      renderItem={({item}: ListRenderItemInfo<Github>) => (
+        <RepositoryCard 
+          id={item.id}  
+          image={item.avatar_url}
           title={item.title}
           description={item.description}
         />

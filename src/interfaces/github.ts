@@ -1,4 +1,4 @@
-export interface GithubDTO {
+export interface Github {
   id: number;
   title: string;
   avatar_url: string;
@@ -6,4 +6,4 @@ export interface GithubDTO {
   stars: number;
   forks: number;
   open_issues: number;
-};
+}

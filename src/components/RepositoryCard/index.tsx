@@ -2,7 +2,7 @@ import React from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
 import {useNavigation} from '@react-navigation/native'
-import Animated, { SlideInLeft, SlideInRight } from 'react-native-reanimated';
+import Animated, { SlideInRight } from 'react-native-reanimated';
 
 import { 
   Container,
@@ -14,18 +14,19 @@ import {
 
 const mockImage = 'https://doodleipsum.com/700?i=c3fb7f663953a463ba30ffde7ce73077'
 
-export interface RepositoryCardProps {
+interface RepositoryCardProps {
+  id: number;
   image?: string;
   title: string;
   description: string | null;
 }
 
-export const RepositoryCard = ({image = mockImage, title, description}: RepositoryCardProps) => {
+export const RepositoryCard = ({id, image = mockImage, title, description}: RepositoryCardProps) => {
   const theme = useTheme();
   const navigation = useNavigation();
 
   function navigate(){
-    navigation.navigate('Information', { repositoryName: title });
+    navigation.navigate('Information', { repositoryId: id });
   }
 
   return(

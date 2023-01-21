@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { Alert } from 'react-native';
-import * as Clipboard from 'expo-clipboard';
 import { useTheme } from "styled-components";
 import { EvilIcons } from '@expo/vector-icons';
 
 import { api } from "../../services/api";
 import { GithubDTO } from "../../services/dtos/githubDTO";
+import { useRepository } from "../../context/RepositoryContext";
 
 import { Repositories } from "../../components/Repositories";
-import { RepositoryCardDTO } from "../../components/RepositoryCard/dtos/repositoryCardDTO";
 import {
   Container,
   BgImage,
@@ -26,28 +25,10 @@ import logo from '../../assets/images/logo/logo.png';
 
 export const Home = () => {
   const theme = useTheme();
-
+  const { repositories, handleAddRepository } = useRepository();
   const [repositoryInfo, setRepositoryInfo] = useState('');
-  const [repositories, setRepositories] = useState<RepositoryCardDTO[]>([]);
-
-  async function clipBoardData(){
-    const data = await Clipboard.getStringAsync();
-    setRepositoryInfo(data);
-  } 
 
   async function handleTextInput(value: string) {
-    // if(value === '') return;
-    // const copiedContent = await Clipboard.getStringAsync();
-    // console.log('copiado: ', copiedContent)
-
-    // if(copiedContent === '') return;
-    // const isCopy = value.includes(copiedContent);
-
-    // if(isCopy){
-    //   console.log('aqui:', copiedContent);
-    // }
-
-    // console.log('value:', value)
     setRepositoryInfo(value)
   }
 
@@ -57,17 +38,17 @@ export const Home = () => {
       return;
     }
     try {
-      const { data } = await api.get<GithubDTO>(`/repos/${repositoryInfo}`);    
-      const repositoryData: RepositoryCardDTO = {
+      const { data } = await api.get(`/repos/${repositoryInfo}`);    
+      const repositoryData: GithubDTO = {
         id: data.id,
         title: data.full_name,
         description: data.description,
-        image: data.owner.avatar_url
+        avatar_url: data.owner.avatar_url,
+        forks: data.forks_count,
+        stars: data.stargazers_count,
+        open_issues: data.open_issues_count
       }
-
-      if(!repositories.find(repo => repo.id === repositoryData.id)){
-        setRepositories(old => [repositoryData, ...old]);
-      }
+      handleAddRepository(repositoryData);
     } catch (error) {
       console.error(error);
       Alert.alert('Erro ao carregar informações!');
@@ -104,7 +85,6 @@ export const Home = () => {
             <EvilIcons name="search" size={28} color={theme.colors.white} />
           </SearchButton>
         </SearchContent>
-
         <Repositories data={repositories} />          
       </Content>
     </Container>
