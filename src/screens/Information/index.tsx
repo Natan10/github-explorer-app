@@ -1,6 +1,9 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
+import { api } from '../../services/api';
 
 import { BgImage } from '../../components/BgImage';
 import { InfoRepositories } from '../../components/InfoRepositories';
@@ -26,13 +29,29 @@ const image = 'https://doodleipsum.com/700?i=c3fb7f663953a463ba30ffde7ce73077'
 
 export const Information = () => {
   const theme = useTheme();
+  const navigation = useNavigation();
+  const { params } = useRoute();
+
+  const {repositoryName} = params as {repositoryName: string};
+
+  function navigate(){
+    navigation.goBack();
+  }
+
+  async function getRepositoryInformation(){
+    try {
+      api.get(`/${repositoryName!}/issues`)
+    } catch (error) {
+      
+    }
+  }
 
   return(
     <Container>
       <BgImage />
       <Header>
         <HeaderLogo source={logo} resizeMode="cover" />
-        <HeaderArrow>
+        <HeaderArrow onPress={navigate}>
           <AntDesign name="arrowleft" size={18} color={theme.colors.gray_500} />
         </HeaderArrow>
       </Header>

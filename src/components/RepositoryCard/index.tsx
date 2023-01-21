@@ -1,6 +1,8 @@
 import React from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
+import {useNavigation} from '@react-navigation/native'
+import Animated, { SlideInLeft, SlideInRight } from 'react-native-reanimated';
 
 import { 
   Container,
@@ -20,26 +22,35 @@ export interface RepositoryCardProps {
 
 export const RepositoryCard = ({image = mockImage, title, description}: RepositoryCardProps) => {
   const theme = useTheme();
+  const navigation = useNavigation();
+
+  function navigate(){
+    navigation.navigate('Information', { repositoryName: title });
+  }
 
   return(
-    <Container>
-      <Logo 
-        resizeMode='cover'
-        source={{
-          uri: image
-        }}
-      />
-      <Info>
-        <Title numberOfLines={1}>{title}</Title>
-        <Description numberOfLines={1}>
-          {description || 'Sem descrição'}
-        </Description>
-      </Info>
-      <MaterialIcons 
-        name="keyboard-arrow-right" 
-        size={24} 
-        color={theme.colors.gray_200} 
-      />
-    </Container>
+    <Animated.View
+      entering={SlideInRight.duration(500).damping(12)}
+    >
+      <Container onPress={navigate}>
+        <Logo 
+          resizeMode='cover'
+          source={{
+            uri: image
+          }}
+          />
+        <Info>
+          <Title numberOfLines={1}>{title}</Title>
+          <Description numberOfLines={1}>
+            {description || 'Sem descrição'}
+          </Description>
+        </Info>
+        <MaterialIcons 
+          name="keyboard-arrow-right" 
+          size={24} 
+          color={theme.colors.gray_200} 
+          />
+      </Container>
+    </Animated.View>
   );
 }

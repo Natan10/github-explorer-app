@@ -7,7 +7,7 @@ import { Information } from '../screens/Information';
 
 export interface ListRoutes {
   Home: undefined;
-  Information: undefined;
+  Information: {repositoryName: string};
 }
 
 export const AppRoutes = () => {
@@ -17,10 +17,10 @@ export const AppRoutes = () => {
         name='Home'
         component={Home}
       />
-      {/* <Screen 
+      <Screen 
         name="Information"
         component={Information}
-      /> */}
+      />
     </Navigator>
   )
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
+import Animated from 'react-native-reanimated';
 
 import { RepositoryCard } from '../RepositoryCard';
 import { RepositoryCardDTO } from '../RepositoryCard/dtos/repositoryCardDTO';
-import { Container } from './styles';
 
 interface RepositoriesProps {
   data: RepositoryCardDTO[]
@@ -12,7 +12,11 @@ interface RepositoriesProps {
 
 export const Repositories = ({data}: RepositoriesProps) => {
   return(
-    <Container
+    <Animated.FlatList
+      style={{
+        marginTop: 48,
+        flex: 1
+      }}
       data={data}
       showsVerticalScrollIndicator={false}
       keyExtractor={(item: any) => item.id}
