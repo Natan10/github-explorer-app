@@ -2,6 +2,7 @@ import React from 'react';
 import { useTheme } from 'styled-components';
 import { MaterialIcons } from '@expo/vector-icons';
 
+import { RepositoryIssue } from '../../interfaces/issue';
 import { 
   Container,
   Info,
@@ -10,18 +11,17 @@ import {
 } from './styles';
 
 export interface InfoRepositoryCardProps {
-  title: string;
-  description: string;
+  data: RepositoryIssue;
 }
 
-export const InfoRepositoryCard = () => {
+export const InfoRepositoryCard = ({data}: InfoRepositoryCardProps) => {
   const theme = useTheme();
 
   return(
     <Container>
       <Info>
-        <Title numberOfLines={1}>Facebook/react</Title>
-        <Description numberOfLines={1} >A declaritive, efficient a sjskjsksjks sjksjsnd flexis sjksjsk ksjsksj kjsksj</Description>
+        <Title numberOfLines={1}>{data.title}</Title>
+        <Description numberOfLines={1}>{data.user.login}</Description>
       </Info>
 
       <MaterialIcons 

@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
 import { useTheme } from 'styled-components';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
+import { useRepository } from '../../context/RepositoryContext';
 import { api } from '../../services/api';
+import { RepositoryIssue } from '../../interfaces/issue';
+import { RepositoryIssueDTO } from '../../services/dtos/issueDTO';
 
 import { BgImage } from '../../components/BgImage';
 import { InfoRepositories } from '../../components/InfoRepositories';
@@ -25,26 +29,44 @@ import {
 
 import logo from '../../assets/images/logo/logo.png';
 
-const image = 'https://doodleipsum.com/700?i=c3fb7f663953a463ba30ffde7ce73077'
+interface RouteParams {
+  repositoryId: number;
+}
 
 export const Information = () => {
   const theme = useTheme();
   const navigation = useNavigation();
   const { params } = useRoute();
 
-  const {repositoryName} = params as {repositoryName: string};
+  const [issues, setIssues] = useState<RepositoryIssue[]>([]);
+  const {repositories} = useRepository();
+  
+  const { repositoryId } = params as RouteParams;
+  const repository = repositories.find(repo => repo.id === repositoryId);
 
   function navigate(){
     navigation.goBack();
   }
-
-  async function getRepositoryInformation(){
-    try {
-      api.get(`/${repositoryName!}/issues`)
-    } catch (error) {
-      
+  
+  useEffect(() => {
+    async function getRepositoryInformation(){
+      try {
+        const {data} = await api.get(`repos/${repository.title}/issues`);
+        setIssues(data.map((issue: RepositoryIssueDTO) => ({
+          id: issue.id,
+          title: issue.title,
+          html_url: issue.html_url,
+          user: {
+            login: issue.user.login
+          }
+        })));
+      } catch (error) {
+        console.error(error);
+        return Alert.alert('Erro ao pesquisar issues do repositório!');
+      }
     }
-  }
+    getRepositoryInformation();
+  },[repositoryId])
 
   return(
     <Container>
@@ -59,36 +81,36 @@ export const Information = () => {
       <Info>
         <InfoLogo 
           source={{
-            uri: image
+            uri: repository.avatar_url
           }}
           resizeMode="contain"
         />
         <InfoContent>
-          <InfoTitle numberOfLines={1}>facebook/react</InfoTitle>
+          <InfoTitle numberOfLines={1}>{repository.title}</InfoTitle>
           <InfoDescription numberOfLines={2}>
-            A declarative, efficient, and flexible javascript library for building user intkjejk...
+            {repository.description ? repository.description : '-'}
           </InfoDescription>
         </InfoContent>
       </Info>
 
       <InfoCardCountContent>
         <InfoCardCount>
-          <InfoCardTitle>4158</InfoCardTitle>
+          <InfoCardTitle>{repository.stars}</InfoCardTitle>
           <InfoCardName>Stars</InfoCardName>
         </InfoCardCount>
 
         <InfoCardCount>
-          <InfoCardTitle>734</InfoCardTitle>
+          <InfoCardTitle>{repository.forks}</InfoCardTitle>
           <InfoCardName>Forks</InfoCardName>
         </InfoCardCount>
 
         <InfoCardCount>
-          <InfoCardTitle>4158</InfoCardTitle>
+          <InfoCardTitle>{repository.open_issues}</InfoCardTitle>
           <InfoCardName >Issues {'\n'} Abertas</InfoCardName>
         </InfoCardCount>
       </InfoCardCountContent>
     
-      <InfoRepositories data={[]} />
+      <InfoRepositories data={issues} />
     </Container>
   );
 }
