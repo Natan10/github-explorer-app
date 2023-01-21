@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
 import { MaterialIcons } from '@expo/vector-icons';
+import * as Linking from 'expo-linking';
 
 import { RepositoryIssue } from '../../interfaces/issue';
 import { 
@@ -17,8 +18,12 @@ export interface InfoRepositoryCardProps {
 export const InfoRepositoryCard = ({data}: InfoRepositoryCardProps) => {
   const theme = useTheme();
 
+  const openIssueLink = () => {
+    Linking.openURL(data.html_url);
+  }
+
   return(
-    <Container>
+    <Container onPress={openIssueLink}>
       <Info>
         <Title numberOfLines={1}>{data.title}</Title>
         <Description numberOfLines={1}>{data.user.login}</Description>
