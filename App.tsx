@@ -8,7 +8,7 @@ import {
 
 
 import { Routes } from './src/routes';
-
+import { RepositoryContextProvider } from './src/context/RepositoryContext';
 import theme from './src/global/styles/theme';
 
 export default function App() {
@@ -23,7 +23,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Routes/>
+      <RepositoryContextProvider>
+        <Routes/>
+      </RepositoryContextProvider>
     </ThemeProvider>
   );
 }

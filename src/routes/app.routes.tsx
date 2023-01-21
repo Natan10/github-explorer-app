@@ -7,7 +7,9 @@ import { Information } from '../screens/Information';
 
 export interface ListRoutes {
   Home: undefined;
-  Information: {repositoryName: string};
+  Information: {
+    repositoryId: number
+  };
 }
 
 export const AppRoutes = () => {
