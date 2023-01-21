@@ -9,6 +9,7 @@ import { api } from '../../services/api';
 import { RepositoryIssue } from '../../interfaces/issue';
 import { RepositoryIssueDTO } from '../../services/dtos/issueDTO';
 
+import { Load } from '../../components/Load';
 import { BgImage } from '../../components/BgImage';
 import { InfoRepositories } from '../../components/InfoRepositories';
 import { 
@@ -39,6 +40,7 @@ export const Information = () => {
   const { params } = useRoute();
 
   const [issues, setIssues] = useState<RepositoryIssue[]>([]);
+  const [load, setLoad] = useState(true);
   const {repositories} = useRepository();
   
   const { repositoryId } = params as RouteParams;
@@ -63,6 +65,8 @@ export const Information = () => {
       } catch (error) {
         console.error(error);
         return Alert.alert('Erro ao pesquisar issues do repositório!');
+      } finally {
+        setLoad(false);
       }
     }
     getRepositoryInformation();
@@ -110,7 +114,8 @@ export const Information = () => {
         </InfoCardCount>
       </InfoCardCountContent>
     
-      <InfoRepositories data={issues} />
+      {!load ? <InfoRepositories data={issues} /> : <Load/>}
+      
     </Container>
   );
 }
