@@ -4,7 +4,6 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Animated, { SlideInRight } from 'react-native-reanimated';
 import * as Linking from 'expo-linking';
 
-
 import { RepositoryIssue } from '../../interfaces/issue';
 import { 
   Container,

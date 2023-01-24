@@ -37,3 +37,16 @@ export const Description = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
   color: ${({theme}) => theme.colors.gray_500};
 `;
+
+export const DeleteButton = styled.Pressable`
+  width: 80px;
+  margin-bottom: 12px;
+
+  justify-content: center;
+  align-items: center;
+
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+  background-color: ${({theme}) => theme.colors.red_500};
+`;

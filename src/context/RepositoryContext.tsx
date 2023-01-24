@@ -5,6 +5,7 @@ import { Github } from '../interfaces/github';
 interface RepositoryContextProps {
   repositories: Github[];
   handleAddRepository: (repository: Github) => void;
+  handleRemoveRepository: (id: number) => void;
 }
 
 const RepositoryContext = createContext<RepositoryContextProps>({} as RepositoryContextProps);
@@ -23,8 +24,20 @@ export const RepositoryContextProvider = ({
       setRepositories(old => [...old, repository]);
     }
   }
+
+  const handleRemoveRepository = (id: number) => {
+    const index = repositories.findIndex(rep => rep.id === id);
+    repositories.splice(index, 1);
+    setRepositories([...repositories]);  
+  }
+
   return (
-    <RepositoryContext.Provider value={{repositories, handleAddRepository}}>
+    <RepositoryContext.Provider 
+      value={{
+        repositories, 
+        handleAddRepository,
+        handleRemoveRepository
+      }}>
       {children}
     </RepositoryContext.Provider>
   )
